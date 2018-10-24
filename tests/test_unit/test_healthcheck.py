@@ -20,13 +20,22 @@ class BasicHealthCheckTest(unittest.TestCase):
         response = self.client.get(self.path)
         self.assertEqual(200, response.status_code)
 
-    def test_failing_check(self):
+    def test_failing_check_uses_default_status_code(self):
         def fail_check():
             return False, "FAIL"
 
         self.hc.add_check(fail_check)
         response = self.client.get(self.path)
         self.assertEqual(200, response.status_code)
+
+    def test_failing_check_uses_given_status_code(self):
+        def fail_check():
+            return False, "FAIL"
+
+        self.hc.failed_status = 500
+        self.hc.add_check(fail_check)
+        response = self.client.get(self.path)
+        self.assertEqual(500, response.status_code)
 
 
 class BasicEnvironmentDumpTest(unittest.TestCase):
