@@ -47,7 +47,7 @@ def check_reduce(passed, result):
 class HealthCheck(object):
     def __init__(self, app=None, path=None, success_status=200,
                  success_headers=None, success_handler=json_success_handler,
-                 success_ttl=27, failed_status=500, failed_headers=None,
+                 success_ttl=27, failed_status=200, failed_headers=None,
                  failed_handler=json_failed_handler, failed_ttl=9,
                  exception_handler=basic_exception_handler, checkers=None,
                  log_on_failure=True,
